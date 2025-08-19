@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from database import create_tables
 from contextlib import asynccontextmanager
+from routes import router as all_routes
 import uvicorn
 
 @asynccontextmanager
@@ -16,7 +17,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# app.include_router()
+app.include_router(all_routes)
 
 @app.get("/")
 async def get_health():
