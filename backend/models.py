@@ -17,19 +17,21 @@ class User(Base):
     fitness_goals = Column(String(100), nullable=False)
     medical_conditions = Column(String(200))
     activity_level = Column(String(50))
-    create_at = Column(DateTime(timezone=True), server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 # plan_name, difficulty_level, duration, target_muscle_groups, exercises_list
 class Workout(Base):
     __tablename__ = "workout"
 
-    Workout_id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     plan_name = Column(String(100), nullable=False)
     difficulty_level = Column(String(100))
     duration = Column(Time)
     target_muscle_groups = Column(String(100))
     exercises_list = Column(String(100))
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     user_table_id = Column(ForeignKey("user_table.id"))
     
@@ -39,13 +41,15 @@ class Workout(Base):
 class Exercise(Base):
     __tablename__ = "exercise"
 
-    exercise_id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     exercise_name = Column(String(50), nullable=False)
     category = Column(String(50))
     equipment_needed = Column(Boolean, nullable=False, index=True)
     difficulty = Column(String(50), nullable=False, index=True)
     instructions = Column(String(200))
     target_muscles = Column(String(100))
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     
     user_table_id = Column(ForeignKey("user_table.id"))
 
@@ -61,9 +65,11 @@ class ProgressTracking(Base):
     weights = Column(Integer)
     duration = Column(Time)
     calories_burned = Column(Integer)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     user_table_id = Column(ForeignKey("user_table.id"))
-    Workout_id = Column(ForeignKey("workout.Workout_id"))
+    Workout_id = Column(ForeignKey("workout.id"))
 
 
 # user_id, date, meals, calories, macronutrients (protein, carbs, fats)
@@ -75,5 +81,7 @@ class nutrition(Base):
     meals = Column(String(100))
     calories = Column(Integer)
     macronutrients = Column(Integer)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     user_table_id = Column(ForeignKey("user_table.id"))

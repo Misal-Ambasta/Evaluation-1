@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.ext.declarative import declarative_base
 
 DATABASE_URL = "sqlite+aiosqlite:///./fitness.db"
-Base = declarative_base
+Base = declarative_base()
 
 engine = create_async_engine(
     DATABASE_URL,
